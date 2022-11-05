@@ -1,21 +1,45 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
 
-require('dotenv').config({ path: './config.env' })
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...')
+    console.log(err.name, err.message)
+    process.exit(1)
+})
 
-app.use(cors())
-app.use(express.json())
-app.use(require('./routes/record'))
+dotenv.config({ path: './config.env' })
 
-// get driver connection
-const dbo = require('./db/conn')
+const app = require('./app')
+
+const DB = process.env.DATABASE_URL.replace(
+    '<password>',
+    process.env.DATABASE_PASSWORD
+)
+
+mongoose
+    .connect(DB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log('DB connections succesfull'))
 
 const port = process.env.PORT || 3000
-app.listen(port, () => {
-    // perform a database connection when server starts
-    dbo.connectToServer(function (err) {
-        if (err) console.error(err)
+
+const server = app.listen(port, () => {
+    console.log(`App running on port ${port}...`)
+})
+
+process.on('unhandledRejection', (err) => {
+    console.log('UNHANDLER REJECTION! 💥 Shutting down...')
+    console.log(err.name, err.message)
+    server.close(() => {
+        process.exit(1)
     })
-    console.log(`Server is running on port: ${port}`)
+})
+
+process.on('SIGTERM', () => {
+    console.log('👋 SIGTERM RECEIVED. Shutting down gracefully')
+    server.close(() => {
+        console.log('💥 process terminated')
+    })
 })
