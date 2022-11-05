@@ -1,13 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from '../components'
-import type { PageContainerProps } from '../types'
 
-export const PageContainer = ({ hasBlackBg }: PageContainerProps) => {
+export const PageContainer = () => {
     return (
-        <div>
-            <Header hasBlackBg={hasBlackBg} />
+        <div className='relative'>
+            <Header />
             <Outlet />
-            <footer></footer>
+            <footer>footer here</footer>
         </div>
     )
 }

@@ -17,7 +17,6 @@ root.render(
                         element={<Home />}
                     />
                 </Route>
-                <Route element={<PageContainer hasBlackBg />}></Route>
             </Routes>
         </Router>
     </React.StrictMode>
