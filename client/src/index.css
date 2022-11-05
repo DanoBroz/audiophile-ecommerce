@@ -40,12 +40,12 @@
         @apply text-lg leading-[1.5rem] tracking-[0.08125rem];
     }
 
-    .overline {
-        @apply text-sm font-normal uppercase leading-[1.1875rem] tracking-[0.625rem] text-Orange-dark;
+    .over-line {
+        @apply text-sm font-normal uppercase leading-[1.1875rem] tracking-[0.625rem];
     }
 
     .sub-title {
-        @apply text-[0.8125rem] font-bold uppercase leading-[1.5625rem] tracking-[0.0625] text-Orange-dark;
+        @apply text-[0.8125rem] font-bold uppercase leading-[1.5625rem] tracking-[0.0625];
     }
 
     body {
