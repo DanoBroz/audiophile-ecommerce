@@ -8,7 +8,7 @@ export const Jumbotron = () => {
     return (
         <section
             style={{ backgroundImage: `url('${heroBackground}')` }}
-            className='bg-[#191919] bg-contain bg-center bg-no-repeat pt-[6.0625rem]'
+            className='mb-40 rounded-b-lg bg-[#191919] bg-contain bg-center bg-no-repeat pt-[6.0625rem]'
         >
             <div className='container grid grid-cols-2'>
                 <div className='max-w-[444.6px] pt-[128px] pb-[158px] pr-[46.6px] text-white'>
