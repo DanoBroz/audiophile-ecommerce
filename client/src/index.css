@@ -52,4 +52,12 @@
         margin: 0;
         @apply text-[0.9375rem] font-medium leading-[1.5625rem] tracking-[0px];
     }
+
+    .footer-content-areas {
+        grid-template-columns: 540px auto;
+        grid-template-areas:
+            'logo links'
+            'text social'
+            'copy .';
+    }
 }
