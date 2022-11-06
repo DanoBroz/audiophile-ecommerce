@@ -50,6 +50,6 @@
 
     body {
         margin: 0;
-        @apply text-[0.9375rem] font-medium leading-[1.5625rem];
+        @apply text-[0.9375rem] font-medium leading-[1.5625rem] tracking-[0px];
     }
 }
