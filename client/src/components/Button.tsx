@@ -21,7 +21,7 @@ export const Button = (props: ButtonProps) => {
     const secondaryClass =
         'px-[30px] h-12 items-center bg-white text-black border border-black hover:bg-black hover:text-white'
     const outlineClass =
-        'bg-white text-black border border-black hover:bg-Orange-light'
+        'bg-transparent text-black/50 items-center gap-[13px] hover:text-Orange-dark'
     const buttonClasses = [primaryClass, secondaryClass, outlineClass]
 
     return (
