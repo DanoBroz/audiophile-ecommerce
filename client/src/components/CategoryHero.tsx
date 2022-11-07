@@ -9,7 +9,7 @@ interface HeroConfig {
     productLink: string
     imageUrl: string
     isNew?: boolean
-    invert?: boolean
+    revert?: boolean
 }
 
 type CategoryHeroProps = HeroConfig & HTMLAttributes<HTMLDivElement>
@@ -18,7 +18,7 @@ export const CategoryHero = (props: CategoryHeroProps) => {
     const {
         className,
         heroTextContent,
-        invert,
+        revert = false,
         isNew,
         imageUrl,
         heroHeading,
@@ -27,30 +27,34 @@ export const CategoryHero = (props: CategoryHeroProps) => {
     } = props
 
     const navigate = useNavigate()
+    const revertAreas = revert ? `'content photo'` : `'photo content'`
 
     return (
         <section
             className={classnames(
                 'container grid items-center gap-[125px] pb-40',
-                {
-                    'grid-flow-row-dense': invert,
-                },
                 className
             )}
-            style={{ gridTemplateColumns: '540px auto' }}
+            style={{
+                gridTemplateColumns: `${revert ? '540px auto' : 'auto 540px'}`,
+                gridTemplateAreas: revertAreas,
+            }}
             {...elementProps}
         >
             <div
-                style={{ backgroundImage: `url('${imageUrl}')` }}
+                style={{
+                    backgroundImage: `url('${imageUrl}')`,
+                    gridArea: 'photo',
+                }}
                 className='h-[560px] w-[540px] overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat'
             ></div>
-            <div>
+            <div style={{ gridArea: 'content' }}>
                 {isNew && (
                     <span className='over-line inline-block pb-4 text-Orange-dark'>
                         new product
                     </span>
                 )}
-                <h2 className='pb-8'>{heroHeading}</h2>
+                <h2 className='pb-8 pr-[140px]'>{heroHeading}</h2>
                 <p className='pb-10 text-black/50'>{heroTextContent}</p>
                 <Button onClick={() => navigate(productLink)}>
                     see product

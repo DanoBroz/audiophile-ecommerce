@@ -1,9 +1,5 @@
-import { About, Button, CategoryItem } from '../../components'
-import { ItemContainer } from '../../containers'
+import { About, Button, CategoryItems } from '../../components'
 import { Jumbotron } from './components'
-import headphonesImage from '../../assets/shared/desktop/image-category-thumbnail-headphones.png'
-import speakersImage from '../../assets/shared/desktop/image-category-thumbnail-speakers.png'
-import earphonesImage from '../../assets/shared/desktop/image-category-thumbnail-earphones.png'
 import { ReactComponent as Pattern } from '../../assets/home/desktop/pattern-circles.svg'
 import zx9Speaker from '../../assets/home/desktop/image-speaker-zx9.png'
 import zx7Speaker from '../../assets/home/desktop/image-speaker-zx7.jpg'
@@ -17,20 +13,7 @@ export const Home = () => {
     return (
         <>
             <Jumbotron />
-            <ItemContainer className='pb-[168px]'>
-                <CategoryItem
-                    categoryTitle='headphones'
-                    imageUrl={headphonesImage}
-                />
-                <CategoryItem
-                    categoryTitle='speakers'
-                    imageUrl={speakersImage}
-                />
-                <CategoryItem
-                    categoryTitle='earphones'
-                    imageUrl={earphonesImage}
-                />
-            </ItemContainer>
+            <CategoryItems className='pb-[168px]' />
             <section className='container'>
                 <div
                     style={{ gridTemplateColumns: 'minmax(455px, 1fr) 1fr' }}
