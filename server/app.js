@@ -7,6 +7,8 @@ const compression = require('compression')
 const cors = require('cors')
 const hpp = require('hpp')
 const xss = require('xss-clean')
+const productRouter = require('./routes/productRoutes')
+const AppError = require('./utils/appError')
 
 const app = express()
 
@@ -75,14 +77,10 @@ app.use((req, res, next) => {
 })
 
 // Routes
-// app.use('/', viewRouter)
-// app.use('/api/v1/tours/', tourRouter)
-// app.use('/api/v1/users/', userRouter)
-// app.use('/api/v1/reviews/', reviewRouter)
-// app.use('/api/v1/bookings/', bookingRouter)
+app.use('/api/v1/products/', productRouter)
 
-app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
-})
+// app.all('*', (req, res, next) => {
+//     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
+// })
 
 module.exports = app
