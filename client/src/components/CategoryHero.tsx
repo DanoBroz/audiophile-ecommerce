@@ -36,7 +36,7 @@ export const CategoryHero = (props: CategoryHeroProps) => {
                 className
             )}
             style={{
-                gridTemplateColumns: `${revert ? '540px auto' : 'auto 540px'}`,
+                gridTemplateColumns: `${revert ? 'auto 540px' : '540px auto'}`,
                 gridTemplateAreas: revertAreas,
             }}
             {...elementProps}
