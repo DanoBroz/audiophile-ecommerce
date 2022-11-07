@@ -1,5 +1,5 @@
-import { Button } from '../../components'
-import heroBackground from '../../assets/home/desktop/image-hero.jpg'
+import { Button } from '../../../components'
+import heroBackground from '../../../assets/home/desktop/image-hero.jpg'
 import { useNavigate } from 'react-router-dom'
 
 export const Jumbotron = () => {
