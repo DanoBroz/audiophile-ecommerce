@@ -6,20 +6,9 @@ import zx7Speaker from '../../assets/home/desktop/image-speaker-zx7.jpg'
 import yx1Earphones from '../../assets/home/desktop/image-earphones-yx1.jpg'
 
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import axios from 'axios'
 
 export const Home = () => {
     const navigate = useNavigate()
-
-    const getProducts = async () => {
-        const products = await axios.get('/api/v1/products')
-        console.log(products)
-    }
-
-    useEffect(() => {
-        getProducts()
-    }, [])
 
     return (
         <>
