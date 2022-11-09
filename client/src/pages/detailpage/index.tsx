@@ -28,7 +28,9 @@ export const DetailPage = () => {
                             heroHeading={productData?.name}
                             heroTextContent={productData?.description}
                             imageUrl={productData?.image.desktop}
-                        ></ProductHero>
+                        >
+                            <h6 className="pb-[47px]">$ {productData?.price}</h6>
+                        </ProductHero>
                     </>
                 ) : (
                     <p>Loading...</p>

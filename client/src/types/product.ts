@@ -31,6 +31,7 @@ export interface ProductData {
         desktop: string
     }
     new: boolean
+    price: number
     description: string
     features: string
     includes: IncludesData[]

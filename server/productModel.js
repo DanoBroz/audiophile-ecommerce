@@ -31,6 +31,7 @@ const productSchema = new mongoose.Schema({
         desktop: String,
     },
     new: Boolean,
+    price: Number,
     description: String,
     features: String,
     includes: [includesSchema],
