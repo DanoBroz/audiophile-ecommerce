@@ -28,6 +28,7 @@ root.render(
                         path='/earphones'
                         element={<Earphones />}
                     />
+                    <Route path='/products/:slug' />
                     <Route
                         path='*'
                         element={<NotFound />}

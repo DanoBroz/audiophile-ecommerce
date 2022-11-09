@@ -1,7 +1,8 @@
+import classnames from 'classnames'
 import type { HTMLAttributes } from 'react'
 
 interface HeaderConfig {
-    headingText: string
+    headingText?: string
 }
 
 type CategoryHeaderProps = HeaderConfig & HTMLAttributes<HTMLElement>
@@ -11,7 +12,14 @@ export const CategoryHeader = (props: CategoryHeaderProps) => {
 
     return (
         <section
-            className={`mb-40 rounded-b-lg bg-black bg-contain bg-center bg-no-repeat pt-[12.1875rem] text-center text-white ${className}`}
+            className={classnames(
+                'rounded-b-lg bg-black bg-contain bg-center bg-no-repeat text-center text-white',
+                {
+                    'mb-40 pt-[12.1875rem]': headingText,
+                    'mb-[79px] pt-[97px]': !headingText,
+                },
+                className
+            )}
             {...elementProps}
         >
             <h2 className='pb-[97px]'>{headingText}</h2>
