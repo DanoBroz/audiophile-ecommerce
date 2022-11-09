@@ -1,1 +1,1 @@
-export type { HeaderProps } from './Header'
+export type { CategoryHeroProps, ProductHeroProps } from './Hero'

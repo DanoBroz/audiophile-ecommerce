@@ -1,2 +1,1 @@
-export type { HeaderProps } from './components'
-export type { PageContainerProps } from './containers'
+export type { CategoryHeroProps, ProductHeroProps } from './components'

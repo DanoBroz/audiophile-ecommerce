@@ -7,15 +7,6 @@
         @apply font-manrope;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-bold uppercase;
-    }
-
     h1 {
         @apply text-[3.5rem] leading-[3.625rem] tracking-[0.125rem];
     }
@@ -51,6 +42,10 @@
     body {
         margin: 0;
         @apply text-[0.9375rem] font-medium leading-[1.5625rem] tracking-[0px];
+    }
+
+    body :where(h1, h2, h3, h4, h5, h6) {
+        @apply font-bold uppercase;
     }
 
     .footer-content-areas {
