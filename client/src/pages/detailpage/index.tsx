@@ -1,15 +1,16 @@
-import { About, CategoryHeader, CategoryItems } from '../../components'
+import { About, CategoryHeader, CategoryItems, Counter } from '../../components'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePageQuery } from '../../hooks/usePageQuery'
 import { ProductHero } from './components/ProductHero'
+import { useState } from 'react'
 
 export const DetailPage = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
 
     const productQueryData = usePageQuery(slug)
-
     const productData = productQueryData.data?.data.product
+    const [counter, setCounter] = useState(1)
 
     return (
         <>
@@ -29,7 +30,24 @@ export const DetailPage = () => {
                             heroTextContent={productData?.description}
                             imageUrl={productData?.image.desktop}
                         >
-                            <h6 className="pb-[47px]">$ {productData?.price}</h6>
+                            <h6 className='pb-[47px]'>
+                                $ {productData?.price}
+                            </h6>
+                            <div className='flex gap-4'>
+                                <Counter
+                                    substraction={() =>
+                                        setCounter(
+                                            (prevCount) => (prevCount += 1)
+                                        )
+                                    }
+                                    counterValue={counter}
+                                    addition={() =>
+                                        setCounter(
+                                            (prevCount) => (prevCount -= 1)
+                                        )
+                                    }
+                                />
+                            </div>
                         </ProductHero>
                     </>
                 ) : (
