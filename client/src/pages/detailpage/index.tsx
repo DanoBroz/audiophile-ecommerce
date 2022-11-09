@@ -1,12 +1,15 @@
 import { About, CategoryHeader, CategoryItems } from '../../components'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePageQuery } from '../../hooks/usePageQuery'
+import { ProductHero } from './components/ProductHero'
 
 export const DetailPage = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
 
-    const productData = usePageQuery(slug)
+    const productQueryData = usePageQuery(slug)
+
+    const productData = productQueryData.data?.data.product
 
     return (
         <>
@@ -18,7 +21,18 @@ export const DetailPage = () => {
                 >
                     go back
                 </span>
-                {!productData.isLoading && <div className='grid '></div>}
+                {!productQueryData.isLoading ? (
+                    <>
+                        <ProductHero
+                            isNew={productData?.new}
+                            heroHeading={productData?.name}
+                            heroTextContent={productData?.description}
+                            imageUrl={productData?.image.desktop}
+                        ></ProductHero>
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
             </section>
             <CategoryItems className='pb-40' />
             <About className='pb-40' />

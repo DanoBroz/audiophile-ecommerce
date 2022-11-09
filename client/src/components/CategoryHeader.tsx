@@ -22,7 +22,7 @@ export const CategoryHeader = (props: CategoryHeaderProps) => {
             )}
             {...elementProps}
         >
-            <h2 className='pb-[97px]'>{headingText}</h2>
+            {!!headingText && <h2 className='pb-[97px]'>{headingText}</h2>}
         </section>
     )
 }

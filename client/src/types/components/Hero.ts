@@ -15,4 +15,4 @@ type SectionProps = HTMLAttributes<HTMLDivElement>
 
 export type CategoryHeroProps = CategoryConfig & SectionProps
 
-export type ProductHeroProps = HeroConfig & SectionProps
+export type ProductHeroProps = Partial<HeroConfig> & SectionProps
