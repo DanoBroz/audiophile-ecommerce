@@ -3,9 +3,9 @@ import {
     CategoryHeader,
     CategoryHero,
     CategoryItems,
-} from '../../components'
+} from '../components'
 
-import yx1 from '../../assets/product-yx1-earphones/desktop/image-category-page-preview.jpg'
+import yx1 from '../assets/product-yx1-earphones/desktop/image-category-page-preview.jpg'
 
 export const Earphones = () => {
     return (

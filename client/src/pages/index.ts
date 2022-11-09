@@ -1,0 +1,6 @@
+export { DetailPage } from './DetailPage'
+export { Speakers } from './Speakers'
+export { NotFound } from './NotFound'
+export { Headphones } from './Headphones'
+export { Earphones } from './Earphones'
+export { Home } from './home'

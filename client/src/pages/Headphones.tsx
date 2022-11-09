@@ -3,11 +3,11 @@ import {
     CategoryHeader,
     CategoryHero,
     CategoryItems,
-} from '../../components'
+} from '../components'
 
-import xx99markTwo from '../../assets/product-xx99-mark-two-headphones/desktop/image-category-page-preview.jpg'
-import xx99markOne from '../../assets/product-xx99-mark-one-headphones/desktop/image-category-page-preview.jpg'
-import xx59 from '../../assets/product-xx59-headphones/desktop/image-category-page-preview.jpg'
+import xx99markTwo from '../assets/product-xx99-mark-two-headphones/desktop/image-category-page-preview.jpg'
+import xx99markOne from '../assets/product-xx99-mark-one-headphones/desktop/image-category-page-preview.jpg'
+import xx59 from '../assets/product-xx59-headphones/desktop/image-category-page-preview.jpg'
 
 export const Headphones = () => {
     return (

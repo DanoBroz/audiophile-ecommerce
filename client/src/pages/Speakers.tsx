@@ -3,10 +3,10 @@ import {
     CategoryHeader,
     CategoryHero,
     CategoryItems,
-} from '../../components'
+} from '../components'
 
-import zx9 from '../../assets/product-zx9-speaker/desktop/image-category-page-preview.jpg'
-import zx7 from '../../assets/product-zx7-speaker/desktop/image-category-page-preview.jpg'
+import zx9 from '../assets/product-zx9-speaker/desktop/image-category-page-preview.jpg'
+import zx7 from '../assets/product-zx7-speaker/desktop/image-category-page-preview.jpg'
 
 export const Speakers = () => {
     return (
