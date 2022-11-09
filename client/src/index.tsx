@@ -3,39 +3,56 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Earphones, Headphones, Home, NotFound, Speakers } from './pages'
+import {
+    DetailPage,
+    Earphones,
+    Headphones,
+    Home,
+    NotFound,
+    Speakers,
+} from './pages'
 import { PageContainer } from './containers'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+const client = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
 root.render(
     <React.StrictMode>
-        <Router>
-            <Routes>
-                <Route element={<PageContainer />}>
-                    <Route
-                        path='/'
-                        element={<Home />}
-                    />
-                    <Route
-                        path='/headphones'
-                        element={<Headphones />}
-                    />
-                    <Route
-                        path='/speakers'
-                        element={<Speakers />}
-                    />
-                    <Route
-                        path='/earphones'
-                        element={<Earphones />}
-                    />
-                    <Route path='/products/:slug' />
-                    <Route
-                        path='*'
-                        element={<NotFound />}
-                    />
-                </Route>
-            </Routes>
-        </Router>
+        <QueryClientProvider client={client}>
+            <Router>
+                <Routes>
+                    <Route element={<PageContainer />}>
+                        <Route
+                            path='/'
+                            element={<Home />}
+                        />
+                        <Route
+                            path='/headphones'
+                            element={<Headphones />}
+                        />
+                        <Route
+                            path='/speakers'
+                            element={<Speakers />}
+                        />
+                        <Route
+                            path='/earphones'
+                            element={<Earphones />}
+                        />
+                        <Route
+                            path='/products/:slug'
+                            element={<DetailPage />}
+                        />
+                        <Route
+                            path='*'
+                            element={<NotFound />}
+                        />
+                    </Route>
+                </Routes>
+            </Router>
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
     </React.StrictMode>
 )
 

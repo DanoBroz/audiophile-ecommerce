@@ -20,7 +20,13 @@ export const Jumbotron = () => {
                         Experience natural, lifelike audio and exceptional build
                         quality made for the passionate music enthusiast.
                     </p>
-                    <Button onClick={() => navigate('/')}>see product</Button>
+                    <Button
+                        onClick={() =>
+                            navigate('/products/xx99-mark-two-headphones')
+                        }
+                    >
+                        see product
+                    </Button>
                 </div>
             </div>
         </section>

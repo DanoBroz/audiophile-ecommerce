@@ -1,4 +1,4 @@
-export { DetailPage } from './DetailPage'
+export { DetailPage } from './detailpage'
 export { Speakers } from './Speakers'
 export { NotFound } from './NotFound'
 export { Headphones } from './Headphones'
