@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Earphones, Headphones, Home, Speakers } from './pages'
+import { Earphones, Headphones, Home, NotFound, Speakers } from './pages'
 import { PageContainer } from './containers'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -27,6 +27,10 @@ root.render(
                     <Route
                         path='/earphones'
                         element={<Earphones />}
+                    />
+                    <Route
+                        path='*'
+                        element={<NotFound />}
                     />
                 </Route>
             </Routes>
