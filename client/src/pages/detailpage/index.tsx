@@ -7,7 +7,7 @@ import {
 } from '../../components'
 
 import { useNavigate, useParams } from 'react-router-dom'
-import { usePageQuery } from '../../hooks/usePageQuery'
+import { usePageQuery } from '../../hooks'
 import { ProductHero } from './components/ProductHero'
 import { useState } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'

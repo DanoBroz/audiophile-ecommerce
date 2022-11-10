@@ -1,9 +1,11 @@
 import { Button } from '../../../components'
 import heroBackground from '../../../assets/home/desktop/image-hero.jpg'
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const Jumbotron = () => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
     return (
         <section
@@ -21,6 +23,12 @@ export const Jumbotron = () => {
                         quality made for the passionate music enthusiast.
                     </p>
                     <Button
+                        onMouseEnter={() =>
+                            queryClient.prefetchQuery([
+                                'products',
+                                'xx99-mark-two-headphones',
+                            ])
+                        }
                         onClick={() =>
                             navigate('/products/xx99-mark-two-headphones')
                         }

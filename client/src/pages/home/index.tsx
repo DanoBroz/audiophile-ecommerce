@@ -6,9 +6,11 @@ import zx7Speaker from '../../assets/home/desktop/image-speaker-zx7.jpg'
 import yx1Earphones from '../../assets/home/desktop/image-earphones-yx1.jpg'
 
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const Home = () => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
     return (
         <>
@@ -36,6 +38,13 @@ export const Home = () => {
                             built to deliver truly remarkable sound.
                         </p>
                         <Button
+                            onMouseEnter={() =>
+                                queryClient.prefetchQuery([
+                                    'products',
+                                    'zx9-speaker',
+                                ])
+                            }
+                            onClick={() => navigate('/products/zx9-speaker')}
                             type='primary'
                             className='!bg-black hover:!bg-[#4C4C4C]'
                         >
@@ -52,6 +61,12 @@ export const Home = () => {
                     </span>
                     <Button
                         type='secondary'
+                        onMouseEnter={() =>
+                            queryClient.prefetchQuery([
+                                'products',
+                                'zx7-speaker',
+                            ])
+                        }
                         onClick={() => navigate('/products/zx7-speaker')}
                     >
                         see product
@@ -68,6 +83,12 @@ export const Home = () => {
                         </span>
                         <Button
                             type='secondary'
+                            onMouseEnter={() =>
+                                queryClient.prefetchQuery([
+                                    'products',
+                                    'yx1-earphones',
+                                ])
+                            }
                             onClick={() => navigate('/products/yx1-earphones')}
                         >
                             see product

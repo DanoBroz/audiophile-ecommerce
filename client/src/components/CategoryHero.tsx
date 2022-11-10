@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query'
 import classnames from 'classnames'
 import { HTMLAttributes } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -28,6 +29,7 @@ export const CategoryHero = (props: CategoryHeroProps) => {
 
     const navigate = useNavigate()
     const revertAreas = revert ? `'content photo'` : `'photo content'`
+    const queryClient = useQueryClient()
 
     return (
         <section
@@ -56,7 +58,15 @@ export const CategoryHero = (props: CategoryHeroProps) => {
                 )}
                 <h2 className='pb-8 pr-[140px]'>{heroHeading}</h2>
                 <p className='pb-10 text-black/50'>{heroTextContent}</p>
-                <Button onClick={() => navigate(productLink)}>
+                <Button
+                    onMouseEnter={() =>
+                        queryClient.prefetchQuery([
+                            'products',
+                            productLink.split('/')[2],
+                        ])
+                    }
+                    onClick={() => navigate(productLink)}
+                >
                     see product
                 </Button>
             </div>

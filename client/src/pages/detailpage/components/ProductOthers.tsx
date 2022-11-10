@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components'
 import { ProductData } from '../../../types'
@@ -6,6 +7,7 @@ type OthersProps = Partial<Pick<ProductData, 'others'>>
 
 export const ProductOthers = ({ others }: OthersProps) => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
     return (
         <div className='mb-40'>
@@ -23,6 +25,12 @@ export const ProductOthers = ({ others }: OthersProps) => {
                         />
                         <h5 className='pb-8'>{otherItem.name}</h5>
                         <Button
+                            onMouseEnter={() =>
+                                queryClient.prefetchQuery([
+                                    'products',
+                                    otherItem.slug,
+                                ])
+                            }
                             onClick={() =>
                                 navigate(`/products/${otherItem.slug}`)
                             }
