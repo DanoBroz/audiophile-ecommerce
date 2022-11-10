@@ -5,6 +5,7 @@ interface ProductImage {
 }
 
 interface Others {
+    _id: string
     slug: string
     name: string
     image: ProductImage
