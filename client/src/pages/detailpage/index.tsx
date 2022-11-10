@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { usePageQuery } from '../../hooks/usePageQuery'
 import { ProductHero } from './components/ProductHero'
 import { useState } from 'react'
-import { ProductDescription } from './components'
+import { ProductDescription, ProductGallery } from './components'
 
 export const DetailPage = () => {
     const { slug } = useParams()
@@ -62,6 +62,7 @@ export const DetailPage = () => {
                             description={productData?.description}
                             includes={productData?.includes}
                         />
+                        <ProductGallery gallery={productData?.gallery} />
                     </>
                 ) : (
                     <p>Loading...</p>
