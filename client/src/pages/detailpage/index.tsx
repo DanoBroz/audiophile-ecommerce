@@ -1,8 +1,16 @@
-import { About, CategoryHeader, CategoryItems, Counter } from '../../components'
+import {
+    About,
+    Button,
+    CategoryHeader,
+    CategoryItems,
+    Counter,
+} from '../../components'
+
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePageQuery } from '../../hooks/usePageQuery'
 import { ProductHero } from './components/ProductHero'
 import { useState } from 'react'
+import { ProductDescription } from './components'
 
 export const DetailPage = () => {
     const { slug } = useParams()
@@ -47,8 +55,13 @@ export const DetailPage = () => {
                                         )
                                     }
                                 />
+                                <Button>add to cart</Button>
                             </div>
                         </ProductHero>
+                        <ProductDescription
+                            description={productData?.description}
+                            includes={productData?.includes}
+                        />
                     </>
                 ) : (
                     <p>Loading...</p>
