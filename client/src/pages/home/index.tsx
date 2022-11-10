@@ -7,6 +7,7 @@ import yx1Earphones from '../../assets/home/desktop/image-earphones-yx1.jpg'
 
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
+import { getProductData } from '../../hooks'
 
 export const Home = () => {
     const navigate = useNavigate()
@@ -39,10 +40,10 @@ export const Home = () => {
                         </p>
                         <Button
                             onMouseEnter={() =>
-                                queryClient.prefetchQuery([
-                                    'products',
-                                    'zx9-speaker',
-                                ])
+                                queryClient.prefetchQuery(
+                                    ['products', 'zx9-speaker'],
+                                    () => getProductData('zx9-speaker')
+                                )
                             }
                             onClick={() => navigate('/products/zx9-speaker')}
                             type='primary'
@@ -62,10 +63,10 @@ export const Home = () => {
                     <Button
                         type='secondary'
                         onMouseEnter={() =>
-                            queryClient.prefetchQuery([
-                                'products',
-                                'zx7-speaker',
-                            ])
+                            queryClient.prefetchQuery(
+                                ['products', 'zx7-speaker'],
+                                () => getProductData('zx7-speaker')
+                            )
                         }
                         onClick={() => navigate('/products/zx7-speaker')}
                     >
@@ -84,10 +85,10 @@ export const Home = () => {
                         <Button
                             type='secondary'
                             onMouseEnter={() =>
-                                queryClient.prefetchQuery([
-                                    'products',
-                                    'yx1-earphones',
-                                ])
+                                queryClient.prefetchQuery(
+                                    ['products', 'yx1-earphones'],
+                                    () => getProductData('yx1-earphones')
+                                )
                             }
                             onClick={() => navigate('/products/yx1-earphones')}
                         >

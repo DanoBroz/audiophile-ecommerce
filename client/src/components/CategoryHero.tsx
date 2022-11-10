@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import classnames from 'classnames'
 import { HTMLAttributes } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getProductData } from '../hooks'
 import { Button } from './Button'
 
 interface HeroConfig {
@@ -60,10 +61,10 @@ export const CategoryHero = (props: CategoryHeroProps) => {
                 <p className='pb-10 text-black/50'>{heroTextContent}</p>
                 <Button
                     onMouseEnter={() =>
-                        queryClient.prefetchQuery([
-                            'products',
-                            productLink.split('/')[2],
-                        ])
+                        queryClient.prefetchQuery(
+                            ['products', productLink.split('/')[2]],
+                            () => getProductData(productLink.split('/')[2])
+                        )
                     }
                     onClick={() => navigate(productLink)}
                 >

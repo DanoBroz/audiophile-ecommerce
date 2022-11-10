@@ -1,1 +1,1 @@
-export { usePageQuery } from './usePageQuery'
+export { usePageQuery, getProductData } from './usePageQuery'
