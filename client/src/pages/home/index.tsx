@@ -52,7 +52,7 @@ export const Home = () => {
                     </span>
                     <Button
                         type='secondary'
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/products/zx7-speaker')}
                     >
                         see product
                     </Button>
@@ -68,7 +68,7 @@ export const Home = () => {
                         </span>
                         <Button
                             type='secondary'
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/products/yx1-earphones')}
                         >
                             see product
                         </Button>

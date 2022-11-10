@@ -16,7 +16,7 @@ export const Speakers = () => {
                 imageUrl={zx9}
                 heroHeading='ZX9 SPEAKER'
                 heroTextContent='Upgrade your sound system with the all new ZX9 active speaker. It’s a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.'
-                productLink='/speakers'
+                productLink='/products/zx9-speaker'
                 isNew
             />
             <CategoryHero
@@ -24,7 +24,7 @@ export const Speakers = () => {
                 revert
                 heroHeading='ZX7 SPEAKER'
                 heroTextContent='Stream high quality sound wirelessly with minimal loss. The ZX7 bookshelf speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use.'
-                productLink='/speakers'
+                productLink='/products/zx7-speaker'
             />
             <CategoryItems className='pb-40' />
             <About className='pb-40' />
