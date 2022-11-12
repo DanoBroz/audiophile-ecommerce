@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/shared/desktop/logo.svg'
 import { NavLinks } from './NavLinks'
-import { Cart } from './Cart'
+import { CartWrapper } from './CartWrapper'
 
 export const Header = () => {
     return (
@@ -11,7 +11,7 @@ export const Header = () => {
                     <Logo />
                 </Link>
                 <NavLinks className='lg:pr-[11%]' />
-                <Cart />
+                <CartWrapper />
             </div>
         </header>
     )
