@@ -4,6 +4,7 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {
+    Checkout,
     DetailPage,
     Earphones,
     Headphones,
@@ -47,6 +48,12 @@ root.render(
                         <Route
                             path='*'
                             element={<NotFound />}
+                        />
+                    </Route>
+                    <Route element={<PageContainer hasBlueBackground />}>
+                        <Route
+                            path='/checkout'
+                            element={<Checkout />}
                         />
                     </Route>
                 </Routes>

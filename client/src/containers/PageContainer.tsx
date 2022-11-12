@@ -2,7 +2,11 @@ import { useLayoutEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Footer, Header } from '../components'
 
-export const PageContainer = () => {
+interface BgProps {
+    hasBlueBackground?: boolean
+}
+
+export const PageContainer = ({ hasBlueBackground = false }: BgProps) => {
     const location = useLocation()
 
     useLayoutEffect(() => {
@@ -10,7 +14,7 @@ export const PageContainer = () => {
     }, [location.pathname])
 
     return (
-        <div className='relative'>
+        <div className={`relative ${hasBlueBackground ? 'bg-Blue-light' : ''}`}>
             <Header />
             <Outlet />
             <Footer />
