@@ -36,7 +36,7 @@
     }
 
     .sub-title {
-        @apply text-[0.8125rem] font-bold uppercase leading-[1.5625rem] tracking-[0.0625];
+        @apply text-[0.8125rem] font-bold uppercase leading-[1.5625rem] tracking-[0.0625px];
     }
 
     body {
@@ -54,5 +54,27 @@
             'logo links'
             'text social'
             'copy .';
+    }
+
+    label:has(input[type='radio']:checked) {
+        @apply border-Orange-dark;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    label:has(input[type='radio']) {
+        @apply rounded-lg
+            border-[#CFCFCF]
+            py-[18px]
+            px-6
+            text-sm
+            font-bold
+            leading-[auto]
+            -tracking-[0.25px]
+            caret-Orange-dark
+            placeholder:text-black/40
+            focus:border-Orange-dark
+            focus:ring-0;
     }
 }
