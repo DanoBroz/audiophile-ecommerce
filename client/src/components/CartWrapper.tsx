@@ -16,7 +16,6 @@ export const CartWrapper = () => {
         <PortalWithState
             closeOnOutsideClick
             closeOnEsc
-            defaultOpen
         >
             {({ openPortal, closePortal, isOpen, portal }) => {
                 stopBodyScroll(isOpen)
