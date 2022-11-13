@@ -20,6 +20,25 @@ export const DetailPage = () => {
     const productData = productQueryData.data?.data.product
     const [counter, setCounter] = useState(1)
 
+    const handleAdd = () => {
+        const cart = localStorage.getItem('cart')
+        if (!cart) localStorage.setItem('cart', '')
+
+        const cartItems = cart ? { ...JSON.parse(cart) } : {}
+        console.log(cartItems)
+
+        const itemKey = productData?.name
+        const itemKeyInCart = itemKey && itemKey in cartItems
+
+        if (itemKeyInCart) {
+            cartItems[itemKey] += counter
+        } else if (typeof itemKey !== 'undefined') {
+            cartItems[itemKey] = counter
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cartItems))
+    }
+
     return (
         <>
             <CategoryHeader />
@@ -44,18 +63,24 @@ export const DetailPage = () => {
                             <div className='flex gap-4'>
                                 <Counter
                                     substraction={() =>
-                                        setCounter(
-                                            (prevCount) => (prevCount += 1)
+                                        setCounter((prevCount) =>
+                                            prevCount < 10
+                                                ? (prevCount += 1)
+                                                : prevCount
                                         )
                                     }
                                     counterValue={counter}
                                     addition={() =>
-                                        setCounter(
-                                            (prevCount) => (prevCount -= 1)
+                                        setCounter((prevCount) =>
+                                            prevCount > 1
+                                                ? (prevCount -= 1)
+                                                : prevCount
                                         )
                                     }
                                 />
-                                <Button>add to cart</Button>
+                                <Button onClick={() => handleAdd()}>
+                                    add to cart
+                                </Button>
                             </div>
                         </ProductHero>
                         <ProductDescription
