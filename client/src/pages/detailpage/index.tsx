@@ -7,7 +7,7 @@ import {
 } from '../../components'
 
 import { useNavigate, useParams } from 'react-router-dom'
-import { usePageQuery } from '../../hooks'
+import { useCart, usePageQuery } from '../../hooks'
 import { ProductHero } from './components/ProductHero'
 import { useState } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'
@@ -20,24 +20,7 @@ export const DetailPage = () => {
     const productData = productQueryData.data?.data.product
     const [counter, setCounter] = useState(1)
 
-    const handleAdd = () => {
-        const cart = localStorage.getItem('cart')
-        if (!cart) localStorage.setItem('cart', '')
-
-        const cartItems = cart ? { ...JSON.parse(cart) } : {}
-        console.log(cartItems)
-
-        const itemKey = productData?.name
-        const itemKeyInCart = itemKey && itemKey in cartItems
-
-        if (itemKeyInCart) {
-            cartItems[itemKey] += counter
-        } else if (typeof itemKey !== 'undefined') {
-            cartItems[itemKey] = counter
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cartItems))
-    }
+    const { handleAddToCart } = useCart()
 
     return (
         <>
@@ -78,7 +61,14 @@ export const DetailPage = () => {
                                         )
                                     }
                                 />
-                                <Button onClick={() => handleAdd()}>
+                                <Button
+                                    onClick={() =>
+                                        handleAddToCart({
+                                            productData,
+                                            counter,
+                                        })
+                                    }
+                                >
                                     add to cart
                                 </Button>
                             </div>
