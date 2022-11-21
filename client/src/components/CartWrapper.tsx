@@ -1,24 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { PortalWithState } from 'react-portal'
 import { ReactComponent as CartIcon } from '../assets/shared/desktop/icon-cart.svg'
 import { useCart } from '../hooks'
-import { CartItem } from '../types'
+import { useLocalStorageObject } from '../hooks/useLocalStorage'
 import { Cart } from './Cart'
 
 export const CartWrapper = () => {
-    const cart = localStorage.getItem('cart')
     const iconRef = useRef<SVGSVGElement>(null)
-    const { getCartData, removeCartData } = useCart()
-    const [cartData, setCartData] = useState<CartItem[] | undefined>(
-        getCartData()
-    )
-    const [isCartOpen, setIsCartOpen] = useState(false)
-
-    useEffect(() => {
-        if (cartData !== (cart && [...JSON.parse(cart)]))
-            setCartData(getCartData())
-        console.log(cartData)
-    }, [isCartOpen])
+    const { cartData, removeCartData } = useCart()
 
     const stopBodyScroll = (isModalOpen: boolean) => {
         isModalOpen
@@ -33,7 +22,6 @@ export const CartWrapper = () => {
         >
             {({ openPortal, closePortal, isOpen, portal }) => {
                 stopBodyScroll(isOpen)
-                setIsCartOpen((prevState) => !prevState)
 
                 return (
                     <>
