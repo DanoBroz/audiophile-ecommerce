@@ -1,3 +1,4 @@
+import { useLocalStorageObject } from './useLocalStorage'
 import type {
     AddCartItemProps,
     CartItem,
@@ -7,35 +8,34 @@ import { indexOf } from 'lodash'
 
 export const useCart = () => {
     const cart = localStorage.getItem('cart')
-
-    const getCartData = (): CartItem[] => {
-        return cart && JSON.parse(cart)
-    }
+    const cartItems: CartItem[] = cart ? [...JSON.parse(cart)] : []
+    const { value: cartData, updatedSetValue } = useLocalStorageObject(
+        'cart',
+        cartItems
+    )
 
     const removeCartData = () => {
         return localStorage.setItem('cart', '')
     }
 
     const handleReduce = ({ cartItem }: ReduceCartItemProps) => {
-        const cartItems: CartItem[] = cart ? [...JSON.parse(cart)] : []
         const itemInCart = cartItems.find((item) => item.name === cartItem.name)
         const itemIndex = indexOf(cartItems, itemInCart)
 
         if (cartItems[itemIndex].amount > 1) {
             cartItems[itemIndex].amount -= 1
-            return localStorage.setItem('cart', JSON.stringify(cartItems))
+            return updatedSetValue(cartItems)
         }
 
         cartItems.splice(itemIndex, 1)
-        localStorage.setItem('cart', JSON.stringify(cartItems))
+        updatedSetValue(cartItems)
     }
 
     const handleAdd = ({ cartItem }: ReduceCartItemProps) => {
-        const cartItems: CartItem[] = cart ? [...JSON.parse(cart)] : []
         const itemInCart = cartItems.find((item) => item.name === cartItem.name)
         const itemIndex = indexOf(cartItems, itemInCart)
         if (cartItems[itemIndex].amount < 10) cartItems[itemIndex].amount += 1
-        localStorage.setItem('cart', JSON.stringify(cartItems))
+        updatedSetValue(cartItems)
     }
 
     const handleAddToCart = ({ counter, productData }: AddCartItemProps) => {
@@ -50,6 +50,7 @@ export const useCart = () => {
             const itemInCart = cartItems.find((item) => item.name === itemKey)
             const itemIndex = indexOf(cartItems, itemInCart)
             cartItems[itemIndex].amount += counter
+            updatedSetValue(cartItems)
         } else if (typeof itemKey !== 'undefined') {
             cartItems.push({
                 name: itemKey,
@@ -57,15 +58,14 @@ export const useCart = () => {
                 image: productData?.image.desktop,
                 pricePerItem: productData?.price || 0,
             })
+            updatedSetValue(cartItems)
         }
-
-        localStorage.setItem('cart', JSON.stringify(cartItems))
     }
 
     return {
         handleAdd,
         handleAddToCart,
-        getCartData,
+        cartData,
         removeCartData,
         handleReduce,
     }
