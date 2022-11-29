@@ -46,7 +46,7 @@ export const Home = () => {
                                 )
                             }
                             onClick={() => navigate('/products/zx9-speaker')}
-                            type='primary'
+                            buttontype='primary'
                             className='!bg-black hover:!bg-[#4C4C4C]'
                         >
                             see product
@@ -61,7 +61,7 @@ export const Home = () => {
                         ZX7 SPEAKER
                     </span>
                     <Button
-                        type='secondary'
+                        buttontype='secondary'
                         onMouseEnter={() =>
                             queryClient.prefetchQuery(
                                 ['products', 'zx7-speaker'],
@@ -83,7 +83,7 @@ export const Home = () => {
                             YX1 EARPHONES
                         </span>
                         <Button
-                            type='secondary'
+                            buttontype='secondary'
                             onMouseEnter={() =>
                                 queryClient.prefetchQuery(
                                     ['products', 'yx1-earphones'],

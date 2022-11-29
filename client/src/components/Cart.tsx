@@ -1,10 +1,11 @@
-import { RefObject, useRef, useState } from 'react'
+import { RefObject, useRef } from 'react'
 import { PortalFunctionParams } from 'react-portal'
 import { useCartPosition } from '../hooks/useCartPosition'
 import { Counter } from './Counter'
 import { Button } from './Button'
 import type { CartItem } from '../types'
 import { useCart } from '../hooks'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface CartConfig {
     iconRef: RefObject<SVGSVGElement>
@@ -16,6 +17,10 @@ type CartProps = Pick<PortalFunctionParams, 'closePortal'> & CartConfig
 
 export const Cart = (props: CartProps) => {
     const { closePortal, iconRef, removeCart, cartData } = props
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const isCheckout = location.pathname.split('/')[1] === 'checkout'
 
     const iconRect = iconRef.current?.getBoundingClientRect()
     const iconElementWidth = iconRef.current?.getBBox().width
@@ -86,7 +91,13 @@ export const Cart = (props: CartProps) => {
                     </span>
                     <h6>$ 5,396</h6>
                 </div>
-                <Button className='justify-center'>checkout</Button>
+                <Button
+                    onClick={() => navigate('/checkout')}
+                    disabled={isCheckout}
+                    className='justify-center'
+                >
+                    checkout
+                </Button>
             </div>
         </div>
     )

@@ -30,7 +30,7 @@ export const CategoryItem = (props: CategoryProps) => {
             <h6 className='pb-[15px]'>{categoryTitle}</h6>
             <Button
                 className='mx-auto mb-[30px]'
-                type='outline'
+                buttontype='outline'
             >
                 <span>shop</span>
                 <ArrowIcon />
