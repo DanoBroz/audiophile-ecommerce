@@ -4,7 +4,6 @@ import { useCartPosition } from '../hooks/useCartPosition'
 import { Counter } from './Counter'
 import { Button } from './Button'
 import type { CartItem } from '../types'
-import { useCart } from '../hooks'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 interface CartConfig {
@@ -29,8 +28,6 @@ export const Cart = (props: CartProps) => {
     const modalWidth = modalRef.current?.offsetWidth
 
     const cartPosition = useCartPosition(iconRect)
-
-    const { handleAdd, handleReduce } = useCart()
 
     const navigateToCheckout = (e: MouseEvent<HTMLButtonElement>) => {
         navigate('/checkout')
@@ -81,9 +78,9 @@ export const Cart = (props: CartProps) => {
                             </div>
                             <Counter
                                 counterType='small'
-                                substraction={() => handleAdd({ cartItem })}
+                                substraction={() => {}}
                                 counterValue={cartItem.amount}
-                                addition={() => handleReduce({ cartItem })}
+                                addition={() => {}}
                             />
                         </div>
                     ))

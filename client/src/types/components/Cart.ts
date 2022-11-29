@@ -5,12 +5,3 @@ export interface CartItem {
     image?: string
     pricePerItem: number
 }
-
-export interface ReduceCartItemProps {
-    cartItem: CartItem
-}
-
-export interface AddCartItemProps {
-    counter: number
-    productData?: ProductData
-}

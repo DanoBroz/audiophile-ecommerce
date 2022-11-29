@@ -7,7 +7,7 @@ import {
 } from '../../components'
 
 import { useNavigate, useParams } from 'react-router-dom'
-import { useCart, usePageQuery } from '../../hooks'
+import { usePageQuery } from '../../hooks'
 import { ProductHero } from './components/ProductHero'
 import { useState } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'
@@ -19,8 +19,6 @@ export const DetailPage = () => {
     const productQueryData = usePageQuery(slug)
     const productData = productQueryData.data?.data.product
     const [counter, setCounter] = useState(1)
-
-    const { handleAddToCart } = useCart()
 
     return (
         <>
@@ -61,16 +59,7 @@ export const DetailPage = () => {
                                         )
                                     }
                                 />
-                                <Button
-                                    onClick={() =>
-                                        handleAddToCart({
-                                            productData,
-                                            counter,
-                                        })
-                                    }
-                                >
-                                    add to cart
-                                </Button>
+                                <Button onClick={() => {}}>add to cart</Button>
                             </div>
                         </ProductHero>
                         <ProductDescription
