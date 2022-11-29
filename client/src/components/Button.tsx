@@ -33,7 +33,7 @@ export const Button = (props: ButtonProps) => {
     return (
         <button
             className={classnames(
-                'flex text-[0.8125rem] font-bold uppercase tracking-[1px] transition-colors',
+                'flex text-[0.8125rem] font-bold uppercase tracking-[1px] transition-colors disabled:bg-gray-400',
                 buttonClasses[ButtonType[buttontype]],
                 className
             )}

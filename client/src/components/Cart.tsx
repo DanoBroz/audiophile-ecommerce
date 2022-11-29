@@ -1,4 +1,4 @@
-import { RefObject, useRef } from 'react'
+import { RefObject, useRef, MouseEvent } from 'react'
 import { PortalFunctionParams } from 'react-portal'
 import { useCartPosition } from '../hooks/useCartPosition'
 import { Counter } from './Counter'
@@ -31,6 +31,11 @@ export const Cart = (props: CartProps) => {
     const cartPosition = useCartPosition(iconRect)
 
     const { handleAdd, handleReduce } = useCart()
+
+    const navigateToCheckout = (e: MouseEvent<HTMLButtonElement>) => {
+        navigate('/checkout')
+        closePortal()
+    }
 
     return (
         <div
@@ -92,7 +97,7 @@ export const Cart = (props: CartProps) => {
                     <h6>$ 5,396</h6>
                 </div>
                 <Button
-                    onClick={() => navigate('/checkout')}
+                    onClick={navigateToCheckout}
                     disabled={isCheckout}
                     className='justify-center'
                 >
