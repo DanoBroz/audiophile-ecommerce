@@ -12,7 +12,7 @@ export const Counter = (props: CounterProps) => {
     return (
         <div
             className={classnames(
-                'grid grid-cols-3 gap-5 bg-Blue-light p-[15px] [&>*]:w-[18px]',
+                'grid grid-cols-3 gap-5 bg-Blue-light px-[15px] py-[11px] [&>*]:w-[18px]',
                 {
                     'gap-5 p-[15px] [&>*]:w-[18px]': counterType === 'normal',
                     'gap-3 px-[11.5px] py-[7px] [&>*]:w-[16px]':
