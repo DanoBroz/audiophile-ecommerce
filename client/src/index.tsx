@@ -15,6 +15,7 @@ import {
 import { PageContainer } from './containers'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { CartContextProvider } from './context'
 
 const client = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -22,42 +23,44 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
         <QueryClientProvider client={client}>
-            <Router>
-                <Routes>
-                    <Route element={<PageContainer />}>
-                        <Route
-                            path='/'
-                            element={<Home />}
-                        />
-                        <Route
-                            path='/headphones'
-                            element={<Headphones />}
-                        />
-                        <Route
-                            path='/speakers'
-                            element={<Speakers />}
-                        />
-                        <Route
-                            path='/earphones'
-                            element={<Earphones />}
-                        />
-                        <Route
-                            path='/products/:slug'
-                            element={<DetailPage />}
-                        />
-                        <Route
-                            path='*'
-                            element={<NotFound />}
-                        />
-                    </Route>
-                    <Route element={<PageContainer hasBlueBackground />}>
-                        <Route
-                            path='/checkout'
-                            element={<Checkout />}
-                        />
-                    </Route>
-                </Routes>
-            </Router>
+            <CartContextProvider>
+                <Router>
+                    <Routes>
+                        <Route element={<PageContainer />}>
+                            <Route
+                                path='/'
+                                element={<Home />}
+                            />
+                            <Route
+                                path='/headphones'
+                                element={<Headphones />}
+                            />
+                            <Route
+                                path='/speakers'
+                                element={<Speakers />}
+                            />
+                            <Route
+                                path='/earphones'
+                                element={<Earphones />}
+                            />
+                            <Route
+                                path='/products/:slug'
+                                element={<DetailPage />}
+                            />
+                            <Route
+                                path='*'
+                                element={<NotFound />}
+                            />
+                        </Route>
+                        <Route element={<PageContainer hasBlueBackground />}>
+                            <Route
+                                path='/checkout'
+                                element={<Checkout />}
+                            />
+                        </Route>
+                    </Routes>
+                </Router>
+            </CartContextProvider>
             <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     </React.StrictMode>
