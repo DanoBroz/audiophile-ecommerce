@@ -17,7 +17,7 @@ type CartProps = Pick<PortalFunctionParams, 'closePortal'> & CartConfig
 
 export const Cart = (props: CartProps) => {
     const { closePortal, iconRef, removeCart, cartData } = props
-    const { dispatch } = useContext(CartContext)
+    const { cartState, dispatch } = useContext(CartContext)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -92,7 +92,10 @@ export const Cart = (props: CartProps) => {
                                 counterType='small'
                                 substraction={() =>
                                     dispatch({
-                                        type: 'REDUCE_AMOUNT',
+                                        type:
+                                            cartItem.amount <= 1
+                                                ? 'DELETE_PRODUCT'
+                                                : 'REDUCE_AMOUNT',
                                         payload: cartItem,
                                     })
                                 }
@@ -113,7 +116,7 @@ export const Cart = (props: CartProps) => {
                     <span className='inline-block uppercase text-black/50'>
                         total
                     </span>
-                    <h6>$ 5,396</h6>
+                    <h6>$ {cartState.totalAmount}</h6>
                 </div>
                 <Button
                     onClick={navigateToCheckout}

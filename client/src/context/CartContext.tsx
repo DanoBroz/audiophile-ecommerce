@@ -13,71 +13,108 @@ interface DispatchAction {
     payload: CartItem
 }
 
-interface ContextConfig {
+interface CartState {
     cartItems: CartItem[]
+    totalAmount: number
+}
+
+interface ContextConfig {
+    cartState: CartState
     dispatch: Dispatch<DispatchAction>
 }
 
 export const CartContext = createContext<ContextConfig>({
-    cartItems: [],
+    cartState: {
+        cartItems: [],
+        totalAmount: 0,
+    },
     dispatch: () => null,
 })
 
 export const CartContextProvider = ({ children }: PropsWithChildren) => {
-    const reducer = (state: CartItem[], action: DispatchAction) => {
-        const itemInCart = state.find((item) => item.id === action.payload?.id)
+    const reducer = (state: CartState, action: DispatchAction) => {
+        const itemInCart = state.cartItems.find(
+            (item) => item.id === action.payload?.id
+        )
+
+        const itemIndex = indexOf(state.cartItems, itemInCart)
+
+        const totalAmount = state.cartItems.reduce(
+            (accumulator, object) =>
+                accumulator + object.amount * object.pricePerItem,
+            0
+        )
+
         switch (action.type) {
             case 'ADD_PRODUCT':
-                return [...state, action.payload]
+                return {
+                    cartItems: [...state.cartItems, action.payload],
+                    totalAmount:
+                        totalAmount +
+                        action.payload.amount * action.payload.pricePerItem,
+                }
             case 'CHANGE_PRODUCT':
-                const stateArray = [...state].filter(
+                const productArray = [...state.cartItems].filter(
                     (item) => item.id !== itemInCart?.id
                 )
-                return !!itemInCart ? [...stateArray, action.payload] : state
+                return !!itemInCart
+                    ? {
+                          cartItems: [...productArray, action.payload],
+                          totalAmount,
+                      }
+                    : state
             case 'ADD_AMOUNT':
-                const newArray = state.filter(
-                    (item) => item.id !== itemInCart?.id
-                )
+                const addArr = [...state.cartItems]
+                let addAmount = addArr[itemIndex].amount
+
+                addArr[itemIndex] = {
+                    ...addArr[itemIndex],
+                    amount: (addAmount += 1),
+                }
 
                 return !!itemInCart
-                    ? [
-                          ...newArray,
-                          {
-                              ...state[indexOf(state, itemInCart)],
-                              amount: itemInCart.amount + 1,
-                          },
-                      ]
+                    ? {
+                          cartItems: [...addArr],
+                          totalAmount: totalAmount + itemInCart.pricePerItem,
+                      }
                     : state
             case 'REDUCE_AMOUNT':
-                const filteredAmount = state.filter(
-                    (item) => item.id !== itemInCart?.id
-                )
-
+                const reduceArr = [...state.cartItems]
+                let reduceAmount = reduceArr[itemIndex].amount
+                reduceArr[itemIndex] = {
+                    ...reduceArr[itemIndex],
+                    amount: (reduceAmount -= 1),
+                }
                 return !!itemInCart
-                    ? [
-                          ...filteredAmount,
-                          {
-                              ...state[indexOf(state, itemInCart)],
-                              amount: itemInCart.amount - 1,
-                          },
-                      ]
+                    ? {
+                          cartItems: [...reduceArr],
+                          totalAmount: totalAmount - itemInCart.pricePerItem,
+                      }
                     : state
             case 'DELETE_PRODUCT':
                 return !!itemInCart
-                    ? state.filter((item) => item.id !== itemInCart?.id)
+                    ? {
+                          cartItems: state.cartItems.filter(
+                              (item) => item.id !== itemInCart?.id
+                          ),
+                          totalAmount: totalAmount - itemInCart.pricePerItem,
+                      }
                     : state
             case 'REMOVE_ALL':
-                return []
+                return { cartItems: [], totalAmount: 0 }
             default:
                 return state
         }
         throw Error('Unknown action: ' + action.type)
     }
 
-    const [cartItems, dispatch] = useReducer(reducer, [])
+    const [cartState, dispatch] = useReducer(reducer, {
+        cartItems: [],
+        totalAmount: 0,
+    })
 
     return (
-        <CartContext.Provider value={{ cartItems, dispatch }}>
+        <CartContext.Provider value={{ cartState, dispatch }}>
             {children}
         </CartContext.Provider>
     )

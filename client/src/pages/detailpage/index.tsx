@@ -17,13 +17,13 @@ import { ProductData } from '../../types'
 export const DetailPage = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
-    const { cartItems, dispatch: cartDispatch } = useContext(CartContext)
+    const { cartState, dispatch: cartDispatch } = useContext(CartContext)
 
     const productQueryData = usePageQuery(slug)
     const productData = productQueryData.data?.data.product
 
     const itemInCart = (productItem: ProductData) =>
-        cartItems?.find((cartItem) => cartItem.id === productItem.id)
+        cartState.cartItems?.find((cartItem) => cartItem.id === productItem.id)
 
     const addProductItem = (e: MouseEvent, productItem: ProductData) => {
         e.preventDefault()

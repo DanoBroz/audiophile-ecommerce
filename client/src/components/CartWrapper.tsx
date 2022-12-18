@@ -8,7 +8,7 @@ import { Cart } from './Cart'
 export const CartWrapper = () => {
     const iconRef = useRef<SVGSVGElement>(null)
     const { removeCartData } = useCart()
-    const { cartItems } = useContext(CartContext)
+    const { cartState } = useContext(CartContext)
 
     const stopBodyScroll = (isModalOpen: boolean) => {
         isModalOpen
@@ -34,7 +34,7 @@ export const CartWrapper = () => {
                         />
                         {portal(
                             <Cart
-                                cartData={cartItems}
+                                cartData={cartState.cartItems}
                                 removeCart={removeCartData}
                                 iconRef={iconRef}
                                 closePortal={closePortal}
