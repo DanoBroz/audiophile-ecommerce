@@ -1,8 +1,15 @@
+import { indexOf } from 'lodash'
 import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react'
 import { CartItem } from '../types'
 
 interface DispatchAction {
-    type: 'ADD_PRODUCT' | 'CHANGE_PRODUCT'
+    type:
+        | 'ADD_PRODUCT'
+        | 'CHANGE_PRODUCT'
+        | 'ADD_AMOUNT'
+        | 'REDUCE_AMOUNT'
+        | 'DELETE_PRODUCT'
+        | 'REMOVE_ALL'
     payload: CartItem
 }
 
@@ -18,14 +25,49 @@ export const CartContext = createContext<ContextConfig>({
 
 export const CartContextProvider = ({ children }: PropsWithChildren) => {
     const reducer = (state: CartItem[], action: DispatchAction) => {
+        const itemInCart = state.find((item) => item.id === action.payload?.id)
         switch (action.type) {
             case 'ADD_PRODUCT':
                 return [...state, action.payload]
             case 'CHANGE_PRODUCT':
                 const stateArray = [...state].filter(
-                    (item) => item.id !== action.payload.id
+                    (item) => item.id !== itemInCart?.id
                 )
-                return [...stateArray, action.payload]
+                return !!itemInCart ? [...stateArray, action.payload] : state
+            case 'ADD_AMOUNT':
+                const newArray = state.filter(
+                    (item) => item.id !== itemInCart?.id
+                )
+
+                return !!itemInCart
+                    ? [
+                          ...newArray,
+                          {
+                              ...state[indexOf(state, itemInCart)],
+                              amount: itemInCart.amount + 1,
+                          },
+                      ]
+                    : state
+            case 'REDUCE_AMOUNT':
+                const filteredAmount = state.filter(
+                    (item) => item.id !== itemInCart?.id
+                )
+
+                return !!itemInCart
+                    ? [
+                          ...filteredAmount,
+                          {
+                              ...state[indexOf(state, itemInCart)],
+                              amount: itemInCart.amount - 1,
+                          },
+                      ]
+                    : state
+            case 'DELETE_PRODUCT':
+                return !!itemInCart
+                    ? state.filter((item) => item.id !== itemInCart?.id)
+                    : state
+            case 'REMOVE_ALL':
+                return []
             default:
                 return state
         }

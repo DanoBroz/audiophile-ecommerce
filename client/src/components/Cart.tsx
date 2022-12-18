@@ -1,10 +1,11 @@
-import { RefObject, useRef, MouseEvent } from 'react'
+import { RefObject, useRef, MouseEvent, useContext } from 'react'
 import { PortalFunctionParams } from 'react-portal'
 import { useCartPosition } from '../hooks/useCartPosition'
 import { Counter } from './Counter'
 import { Button } from './Button'
 import type { CartItem } from '../types'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { CartContext } from '../context'
 
 interface CartConfig {
     iconRef: RefObject<SVGSVGElement>
@@ -16,6 +17,7 @@ type CartProps = Pick<PortalFunctionParams, 'closePortal'> & CartConfig
 
 export const Cart = (props: CartProps) => {
     const { closePortal, iconRef, removeCart, cartData } = props
+    const { dispatch } = useContext(CartContext)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -51,7 +53,17 @@ export const Cart = (props: CartProps) => {
                 <div className='flex justify-between pb-8'>
                     <h6>cart ({cartData?.length || 0})</h6>
                     <span
-                        onClick={removeCart}
+                        onClick={() =>
+                            dispatch({
+                                type: 'REMOVE_ALL',
+                                payload: {
+                                    name: '',
+                                    amount: 0,
+                                    id: 0,
+                                    pricePerItem: 0,
+                                },
+                            })
+                        }
                         className='inline-block cursor-pointer text-black/50 underline'
                     >
                         Remove all
@@ -78,9 +90,19 @@ export const Cart = (props: CartProps) => {
                             </div>
                             <Counter
                                 counterType='small'
-                                substraction={() => {}}
+                                substraction={() =>
+                                    dispatch({
+                                        type: 'REDUCE_AMOUNT',
+                                        payload: cartItem,
+                                    })
+                                }
                                 counterValue={cartItem.amount}
-                                addition={() => {}}
+                                addition={() =>
+                                    dispatch({
+                                        type: 'ADD_AMOUNT',
+                                        payload: cartItem,
+                                    })
+                                }
                             />
                         </div>
                     ))

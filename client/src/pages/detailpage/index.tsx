@@ -12,7 +12,7 @@ import { ProductHero } from './components/ProductHero'
 import { MouseEvent, useContext, useReducer } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'
 import { CartContext } from '../../context'
-import { CartItem, ProductData } from '../../types'
+import { ProductData } from '../../types'
 
 export const DetailPage = () => {
     const { slug } = useParams()

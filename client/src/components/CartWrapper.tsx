@@ -1,12 +1,14 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { PortalWithState } from 'react-portal'
 import { ReactComponent as CartIcon } from '../assets/shared/desktop/icon-cart.svg'
+import { CartContext } from '../context'
 import { useCart } from '../hooks'
 import { Cart } from './Cart'
 
 export const CartWrapper = () => {
     const iconRef = useRef<SVGSVGElement>(null)
     const { removeCartData } = useCart()
+    const { cartItems } = useContext(CartContext)
 
     const stopBodyScroll = (isModalOpen: boolean) => {
         isModalOpen
@@ -32,6 +34,7 @@ export const CartWrapper = () => {
                         />
                         {portal(
                             <Cart
+                                cartData={cartItems}
                                 removeCart={removeCartData}
                                 iconRef={iconRef}
                                 closePortal={closePortal}
