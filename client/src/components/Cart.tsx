@@ -101,6 +101,7 @@ export const Cart = (props: CartProps) => {
                                 }
                                 counterValue={cartItem.amount}
                                 addition={() =>
+                                    cartItem.amount < 10 &&
                                     dispatch({
                                         type: 'ADD_AMOUNT',
                                         payload: cartItem,
