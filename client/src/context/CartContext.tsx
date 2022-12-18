@@ -2,7 +2,7 @@ import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react'
 import { CartItem } from '../types'
 
 interface DispatchAction {
-    type: 'CREATE_PRODUCT'
+    type: 'ADD_PRODUCT' | 'CHANGE_PRODUCT'
     payload: CartItem
 }
 
@@ -19,8 +19,13 @@ export const CartContext = createContext<ContextConfig>({
 export const CartContextProvider = ({ children }: PropsWithChildren) => {
     const reducer = (state: CartItem[], action: DispatchAction) => {
         switch (action.type) {
-            case 'CREATE_PRODUCT':
+            case 'ADD_PRODUCT':
                 return [...state, action.payload]
+            case 'CHANGE_PRODUCT':
+                const stateArray = [...state].filter(
+                    (item) => item.id !== action.payload.id
+                )
+                return [...stateArray, action.payload]
             default:
                 return state
         }
