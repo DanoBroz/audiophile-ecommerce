@@ -21,7 +21,7 @@ export const Counter = (props: CounterProps) => {
             )}
         >
             <button
-                onClick={addition}
+                onClick={substraction}
                 className='flex items-center justify-center text-black/50 hover:text-Orange-dark'
             >
                 -
@@ -30,7 +30,7 @@ export const Counter = (props: CounterProps) => {
                 {counterValue}
             </span>
             <button
-                onClick={substraction}
+                onClick={addition}
                 className='flex items-center justify-center text-black/50 hover:text-Orange-dark'
             >
                 +

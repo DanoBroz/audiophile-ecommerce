@@ -9,16 +9,54 @@ import {
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePageQuery } from '../../hooks'
 import { ProductHero } from './components/ProductHero'
-import { useState } from 'react'
+import { MouseEvent, useContext, useReducer } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'
+import { CartContext } from '../../context'
+import { CartItem, ProductData } from '../../types'
 
 export const DetailPage = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
+    const { cartItems, dispatch: CartDispatch } = useContext(CartContext)
 
     const productQueryData = usePageQuery(slug)
     const productData = productQueryData.data?.data.product
-    const [counter, setCounter] = useState(1)
+
+    const itemInCart = (productItem: CartItem) =>
+        cartItems?.find((cartItem) => cartItem.name === productItem.name)
+
+    const addProductItem = (e: MouseEvent, productItem: ProductData) => {
+        e.preventDefault()
+        CartDispatch({
+            type: 'CREATE_PRODUCT',
+            payload: {
+                name: productItem.name,
+                amount: state.counter,
+                image: productItem?.image.desktop,
+                pricePerItem: productItem?.price || 0,
+            },
+        })
+    }
+
+    const reducer = (
+        state: { counter: number },
+        action: { type: 'increment' | 'decrement' }
+    ) => {
+        switch (action.type) {
+            case 'increment': {
+                return {
+                    counter: state.counter + 1,
+                }
+            }
+            case 'decrement': {
+                return {
+                    counter: state.counter - 1,
+                }
+            }
+        }
+    }
+
+    const [state, dispatch] = useReducer(reducer, { counter: 1 })
 
     return (
         <>
@@ -44,22 +82,22 @@ export const DetailPage = () => {
                             <div className='flex gap-4'>
                                 <Counter
                                     substraction={() =>
-                                        setCounter((prevCount) =>
-                                            prevCount < 10
-                                                ? (prevCount += 1)
-                                                : prevCount
-                                        )
+                                        dispatch({ type: 'decrement' })
                                     }
-                                    counterValue={counter}
+                                    counterValue={state.counter}
                                     addition={() =>
-                                        setCounter((prevCount) =>
-                                            prevCount > 1
-                                                ? (prevCount -= 1)
-                                                : prevCount
-                                        )
+                                        dispatch({ type: 'increment' })
                                     }
                                 />
-                                <Button onClick={() => {}}>add to cart</Button>
+                                <Button
+                                    disabled={!productData}
+                                    onClick={(e) =>
+                                        productData &&
+                                        addProductItem(e, productData)
+                                    }
+                                >
+                                    add to cart
+                                </Button>
                             </div>
                         </ProductHero>
                         <ProductDescription
