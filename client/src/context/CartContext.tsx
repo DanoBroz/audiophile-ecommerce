@@ -105,7 +105,6 @@ export const CartContextProvider = ({ children }: PropsWithChildren) => {
             default:
                 return state
         }
-        throw Error('Unknown action: ' + action.type)
     }
 
     const [cartState, dispatch] = useReducer(reducer, {

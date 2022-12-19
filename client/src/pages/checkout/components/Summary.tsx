@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import productTestImage from '../../../assets/product-xx59-headphones/desktop/image-product.jpg'
 import { Button } from '../../../components'
 import { CartContext } from '../../../context'
 
