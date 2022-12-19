@@ -7,9 +7,9 @@ import {
 } from '../../components'
 
 import { useNavigate, useParams } from 'react-router-dom'
-import { usePageQuery } from '../../hooks'
+import { useCart, useCounter, usePageQuery } from '../../hooks'
 import { ProductHero } from './components/ProductHero'
-import { MouseEvent, useContext, useReducer } from 'react'
+import { useContext } from 'react'
 import { ProductDescription, ProductGallery, ProductOthers } from './components'
 import { CartContext } from '../../context'
 import { ProductData } from '../../types'
@@ -25,54 +25,17 @@ export const DetailPage = () => {
     const itemInCart = (productItem: ProductData) =>
         cartState.cartItems?.find((cartItem) => cartItem.id === productItem.id)
 
-    const addProductItem = (e: MouseEvent, productItem: ProductData) => {
-        e.preventDefault()
-        if (!itemInCart(productItem)) {
-            return cartDispatch({
-                type: 'ADD_PRODUCT',
-                payload: {
-                    id: productItem.id,
-                    name: productItem.name,
-                    amount: state.counter,
-                    image: productItem?.image.desktop,
-                    pricePerItem: productItem?.price || 0,
-                },
-            })
-        }
-        return cartDispatch({
-            type: 'CHANGE_PRODUCT',
-            payload: {
-                id: productItem.id,
-                name: productItem.name,
-                amount: state.counter,
-                image: productItem?.image.desktop,
-                pricePerItem: productItem?.price || 0,
-            },
-        })
-    }
+    const {
+        state: { counter },
+        dispatch,
+    } = useCounter({
+        initialAmount: productData && itemInCart(productData)?.amount,
+    })
 
-    const reducer = (
-        state: { counter: number },
-        action: { type: 'increment' | 'decrement' }
-    ) => {
-        switch (action.type) {
-            case 'increment': {
-                return {
-                    counter:
-                        state.counter < 10 ? state.counter + 1 : state.counter,
-                }
-            }
-            case 'decrement': {
-                return {
-                    counter:
-                        state.counter > 1 ? state.counter - 1 : state.counter,
-                }
-            }
-        }
-    }
-
-    const [state, dispatch] = useReducer(reducer, {
-        counter: (productData && itemInCart(productData)?.amount) || 1,
+    const { addProductItem } = useCart({
+        cartDispatch,
+        counter: counter,
+        isItemInCart: (productData && !!itemInCart(productData)) || false,
     })
 
     return (
@@ -101,7 +64,7 @@ export const DetailPage = () => {
                                     substraction={() =>
                                         dispatch({ type: 'decrement' })
                                     }
-                                    counterValue={state.counter}
+                                    counterValue={counter}
                                     addition={() =>
                                         dispatch({ type: 'increment' })
                                     }

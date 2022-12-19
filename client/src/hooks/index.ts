@@ -1,3 +1,5 @@
 export { usePageQuery, getProductData } from './usePageQuery'
 export { useCartPosition } from './useCartPosition'
 export { useCartUI } from './useCartUI'
+export { useCart } from './useCart'
+export { useCounter } from './useCounter'
