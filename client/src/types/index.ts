@@ -5,4 +5,6 @@ export type {
     CartItem,
 } from './components'
 
+export type { DispatchAction, CartState, ContextConfig } from './context'
+
 export type { ProductData, ProductDataResponse } from './product'

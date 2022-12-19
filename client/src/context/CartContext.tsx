@@ -1,27 +1,6 @@
 import { indexOf } from 'lodash'
-import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react'
-import { CartItem } from '../types'
-
-interface DispatchAction {
-    type:
-        | 'ADD_PRODUCT'
-        | 'CHANGE_PRODUCT'
-        | 'ADD_AMOUNT'
-        | 'REDUCE_AMOUNT'
-        | 'DELETE_PRODUCT'
-        | 'REMOVE_ALL'
-    payload: CartItem
-}
-
-interface CartState {
-    cartItems: CartItem[]
-    totalAmount: number
-}
-
-interface ContextConfig {
-    cartState: CartState
-    dispatch: Dispatch<DispatchAction>
-}
+import { createContext, PropsWithChildren, useReducer } from 'react'
+import { CartState, ContextConfig, DispatchAction } from '../types'
 
 export const CartContext = createContext<ContextConfig>({
     cartState: {
