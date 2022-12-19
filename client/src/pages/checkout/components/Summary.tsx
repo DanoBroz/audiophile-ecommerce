@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { Button } from '../../../components'
 import { CartContext } from '../../../context'
+import { SummaryLine } from './SummaryLine'
 
 export const Summary = () => {
     const { cartState } = useContext(CartContext)
@@ -30,32 +31,22 @@ export const Summary = () => {
                     <span className='text-black/50'>{cartItem.amount}x</span>
                 </div>
             ))}
-            <div className='flex justify-between pb-2'>
-                <span className='inline-block uppercase text-black/50'>
-                    total
-                </span>
-                <h6>$ {cartState.totalAmount.toLocaleString()}</h6>
-            </div>
-            <div className='flex justify-between pb-2'>
-                <span className='inline-block uppercase text-black/50'>
-                    shipping
-                </span>
-                <h6>$ 50</h6>
-            </div>
-            <div className='flex justify-between pb-6'>
-                <span className='inline-block uppercase text-black/50'>
-                    vat (included)
-                </span>
-                <h6>$ 1,079</h6>
-            </div>
-            <div className='flex justify-between pb-6'>
-                <span className='inline-block uppercase text-black/50'>
-                    grand total
-                </span>
-                <h6 className='text-Orange-dark'>
-                    $ {grandTotal.toLocaleString()}
-                </h6>
-            </div>
+            <SummaryLine
+                summaryLable='total'
+                amount={cartState.totalAmount}
+            />
+            <SummaryLine
+                summaryLable='shipping'
+                amount={50}
+            />
+            <SummaryLine
+                summaryLable='vat (included)'
+                amount={1079}
+            />
+            <SummaryLine
+                summaryLable='grand total'
+                amount={grandTotal}
+            />
             <Button className='w-full justify-center'>continue</Button>
         </div>
     )

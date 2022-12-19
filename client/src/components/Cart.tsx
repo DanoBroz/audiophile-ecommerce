@@ -1,11 +1,10 @@
-import { RefObject, useRef, MouseEvent, useContext } from 'react'
+import { RefObject, useContext } from 'react'
 import { PortalFunctionParams } from 'react-portal'
-import { useCartPosition } from '../hooks/useCartPosition'
-import { Counter } from './Counter'
 import { Button } from './Button'
 import type { CartItem } from '../types'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context'
+import { CartContent } from './CartContent'
+import { useCartUI } from '../hooks'
 
 interface CartConfig {
     iconRef: RefObject<SVGSVGElement>
@@ -17,23 +16,15 @@ type CartProps = Pick<PortalFunctionParams, 'closePortal'> & CartConfig
 export const Cart = (props: CartProps) => {
     const { closePortal, iconRef, cartData } = props
     const { cartState, dispatch } = useContext(CartContext)
-    const navigate = useNavigate()
-    const location = useLocation()
 
-    const isCheckout = location.pathname.split('/')[1] === 'checkout'
-
-    const iconRect = iconRef.current?.getBoundingClientRect()
-    const iconElementWidth = iconRef.current?.getBBox().width
-
-    const modalRef = useRef<HTMLDivElement>(null)
-    const modalWidth = modalRef.current?.offsetWidth
-
-    const cartPosition = useCartPosition(iconRect)
-
-    const navigateToCheckout = (e: MouseEvent<HTMLButtonElement>) => {
-        navigate('/checkout')
-        closePortal()
-    }
+    const {
+        modalRef,
+        cartPosition,
+        iconElementWidth,
+        modalWidth,
+        navigateToCheckout,
+        isCheckout,
+    } = useCartUI({ closePortal, iconRef })
 
     return (
         <div
@@ -68,50 +59,10 @@ export const Cart = (props: CartProps) => {
                         Remove all
                     </span>
                 </div>
-                {cartData?.length ? (
-                    cartData?.map((cartItem) => (
-                        <div className='flex items-center justify-between pb-8'>
-                            <div className='flex gap-4'>
-                                <div
-                                    style={{
-                                        backgroundImage: `url('../${cartItem.image}')`,
-                                    }}
-                                    className='h-16 w-16 rounded-lg bg-cover bg-center bg-no-repeat'
-                                ></div>
-                                <div className='flex flex-col font-bold'>
-                                    <span className='uppercase'>
-                                        {cartItem.name.split(' ')[0]}
-                                    </span>
-                                    <span className='text-sm leading-[25px] tracking-normal text-black/50'>
-                                        $ {cartItem.pricePerItem}
-                                    </span>
-                                </div>
-                            </div>
-                            <Counter
-                                counterType='small'
-                                substraction={() =>
-                                    dispatch({
-                                        type:
-                                            cartItem.amount <= 1
-                                                ? 'DELETE_PRODUCT'
-                                                : 'REDUCE_AMOUNT',
-                                        payload: cartItem,
-                                    })
-                                }
-                                counterValue={cartItem.amount}
-                                addition={() =>
-                                    cartItem.amount < 10 &&
-                                    dispatch({
-                                        type: 'ADD_AMOUNT',
-                                        payload: cartItem,
-                                    })
-                                }
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p className='pb-4'>Your cart is empty</p>
-                )}
+                <CartContent
+                    cartState={cartState}
+                    dispatch={dispatch}
+                />
                 <div className='flex justify-between pb-6'>
                     <span className='inline-block uppercase text-black/50'>
                         total
