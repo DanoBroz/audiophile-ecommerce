@@ -10,13 +10,12 @@ import { CartContext } from '../context'
 interface CartConfig {
     iconRef: RefObject<SVGSVGElement>
     cartData?: CartItem[]
-    removeCart?: () => void
 }
 
 type CartProps = Pick<PortalFunctionParams, 'closePortal'> & CartConfig
 
 export const Cart = (props: CartProps) => {
-    const { closePortal, iconRef, removeCart, cartData } = props
+    const { closePortal, iconRef, cartData } = props
     const { cartState, dispatch } = useContext(CartContext)
     const navigate = useNavigate()
     const location = useLocation()

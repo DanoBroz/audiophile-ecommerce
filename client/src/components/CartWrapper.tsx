@@ -2,13 +2,13 @@ import { useContext, useRef } from 'react'
 import { PortalWithState } from 'react-portal'
 import { ReactComponent as CartIcon } from '../assets/shared/desktop/icon-cart.svg'
 import { CartContext } from '../context'
-import { useCart } from '../hooks'
 import { Cart } from './Cart'
 
 export const CartWrapper = () => {
     const iconRef = useRef<SVGSVGElement>(null)
-    const { removeCartData } = useCart()
     const { cartState } = useContext(CartContext)
+
+    const cartItemsNumber = cartState.cartItems.length
 
     const stopBodyScroll = (isModalOpen: boolean) => {
         isModalOpen
@@ -26,16 +26,22 @@ export const CartWrapper = () => {
 
                 return (
                     <>
-                        <CartIcon
-                            ref={iconRef}
-                            onClick={openPortal}
-                            id='cartIcon'
-                            className='hover:cursor-pointer'
-                        />
+                        <div className='relative'>
+                            <CartIcon
+                                ref={iconRef}
+                                onClick={openPortal}
+                                id='cartIcon'
+                                className='relative hover:cursor-pointer'
+                            />
+                            {cartItemsNumber && (
+                                <span className='absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-Orange-dark text-xs text-White-shade'>
+                                    {cartItemsNumber}
+                                </span>
+                            )}
+                        </div>
                         {portal(
                             <Cart
                                 cartData={cartState.cartItems}
-                                removeCart={removeCartData}
                                 iconRef={iconRef}
                                 closePortal={closePortal}
                             />
