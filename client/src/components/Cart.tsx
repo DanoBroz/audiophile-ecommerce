@@ -117,7 +117,7 @@ export const Cart = (props: CartProps) => {
                     <span className='inline-block uppercase text-black/50'>
                         total
                     </span>
-                    <h6>$ {cartState.totalAmount}</h6>
+                    <h6>$ {cartState.totalAmount.toLocaleString()}</h6>
                 </div>
                 <Button
                     onClick={navigateToCheckout}
