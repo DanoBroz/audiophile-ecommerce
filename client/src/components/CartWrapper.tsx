@@ -33,7 +33,7 @@ export const CartWrapper = () => {
                                 id='cartIcon'
                                 className='relative hover:cursor-pointer'
                             />
-                            {cartItemsNumber && (
+                            {cartItemsNumber !== 0 && (
                                 <span className='absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-Orange-dark text-xs text-White-shade'>
                                     {cartItemsNumber}
                                 </span>
