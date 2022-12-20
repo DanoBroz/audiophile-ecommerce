@@ -2,6 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { Fieldset } from './Fieldset'
 import { PaymentRadio } from './PaymentRadio'
 import { TextInput } from './TextInput'
+import { ReactComponent as CashOnDeliveryIcon } from '../../../assets/checkout/icon-cash-on-delivery.svg'
 
 export const Content = () => {
     const methods = useForm({
@@ -10,7 +11,9 @@ export const Content = () => {
         },
     })
 
-    const { handleSubmit } = methods
+    const { handleSubmit, watch } = methods
+
+    const payment = watch('payment')
 
     return (
         <FormProvider {...methods}>
@@ -62,16 +65,32 @@ export const Content = () => {
                 </Fieldset>
                 <Fieldset heading='shipping details'>
                     <PaymentRadio />
-                    <TextInput
-                        labelText='e-Money Number'
-                        name='enumber'
-                        placeholder='238521993'
-                    />
-                    <TextInput
-                        labelText='e-Money Pin'
-                        name='epin'
-                        placeholder='6891'
-                    />
+                    {payment === 'emoney' && (
+                        <>
+                            <TextInput
+                                labelText='e-Money Number'
+                                name='enumber'
+                                placeholder='238521993'
+                            />
+                            <TextInput
+                                labelText='e-Money Pin'
+                                name='epin'
+                                placeholder='6891'
+                            />
+                        </>
+                    )}
+                    {payment === 'cash' && (
+                        <div className='col-span-2 grid grid-cols-[max-content,_auto] items-center gap-8'>
+                            <CashOnDeliveryIcon className='w-12' />
+                            <p className='opacity-50'>
+                                The ‘Cash on Delivery’ option enables you to pay
+                                in cash when our delivery courier arrives at
+                                your residence. Just make sure your address is
+                                correct so that your order will not be
+                                cancelled.
+                            </p>
+                        </div>
+                    )}
                 </Fieldset>
             </form>
         </FormProvider>
